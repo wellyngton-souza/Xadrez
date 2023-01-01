@@ -1,0 +1,58 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.container{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quadrado{
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#tabuleiro{
+    width: 560px;
+    height: 560px;
+    display: flex;
+    flex-wrap: wrap;
+    user-select: none;
+    border: 2px black solid;
+
+    -webkit-box-shadow: 10px 10px 26px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 26px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 26px 0px rgba(0,0,0,0.75);
+}
+
+.peca{
+    width: 20px;
+    height: 20px;
+
+    border: solid 1px red;
+}
+
+.pecabranca{
+    filter: invert(100%);
+}
+
+@media (max-width: 600px) {
+    body{
+        background-color: red;
+    }
+    .quadrado{
+        width: 40px;
+        height: 40px;
+    }
+    #tabuleiro{
+        width: 320px;
+        height: 320px;
+    }
+}
