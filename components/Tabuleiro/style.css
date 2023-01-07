@@ -33,14 +33,18 @@
 }
 
 .peca{
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
 
     border: solid 1px red;
 }
 
 .pecabranca{
     filter: invert(100%);
+}
+
+span{
+    display: none;
 }
 
 @media (max-width: 600px) {
