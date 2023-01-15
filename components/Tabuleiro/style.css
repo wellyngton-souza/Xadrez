@@ -10,6 +10,14 @@
     justify-content: center;
 }
 
+#posicao{
+    background-color: blue;
+}
+
+#posicaopecaselecionada{
+    background-color: purple;
+}
+
 .quadrado{
     width: 70px;
     height: 70px;

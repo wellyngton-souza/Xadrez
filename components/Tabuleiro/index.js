@@ -48,12 +48,14 @@ gerarTabuleiro = () =>{
             //gerarTorre
             if(i == 0 && j == 0 || i == 0 && j == 7){
                 let torre = document.createElement('img');
+                torre.setAttribute("id",`torre`);
                 torre.setAttribute("class", `peca`);
                 torre.setAttribute("src", `./assets/torre.png`);
                 quadrado.appendChild(torre);
             }
             if(i == 7 && j == 0 || i == 7 && j == 7){
                 let torre = document.createElement('img');
+                torre.setAttribute("id",`torrebranca`);
                 torre.setAttribute("class", `peca pecabranca`);
                 torre.setAttribute("src", `./assets/torre.png`);
                 quadrado.appendChild(torre);
@@ -61,12 +63,14 @@ gerarTabuleiro = () =>{
             //gerarCavalor
             if(i == 0 && j == 1 || i == 0 && j == 6){
                 let cavalo = document.createElement('img');
+                cavalo.setAttribute("id",`cavalo`);
                 cavalo.setAttribute("class", `peca`);
                 cavalo.setAttribute("src", `./assets/cavalo.png`);
                 quadrado.appendChild(cavalo);
             }
             if(i == 7 && j == 1 || i == 7 && j == 6){
                 let cavalo = document.createElement('img');
+                cavalo.setAttribute("id",`cavalobranco`);
                 cavalo.setAttribute("class", `peca pecabranca`);
                 cavalo.setAttribute("src", `./assets/cavalo.png`);
                 quadrado.appendChild(cavalo);
@@ -118,47 +122,40 @@ document.addEventListener('load', gerarTabuleiro());
 
 var tabuleiroDom = document.querySelector("#tabuleiro");
 
-const apagapeca = (pecadeletada) =>{
-    if(document.getElementById('pecaselecionada').innerHTML == '1'){
-        let posivelposicao = pecadeletada.id.split("");
-        let posivelposicaoy = posivelposicao[3];
-        let posivelposicaox = posivelposicao[1];
-        posivelposicao = parseInt(posivelposicaox);
-        posivelposicao+= -1;
-
-        posivelposicao = "i"+posivelposicao+"j"+posivelposicaoy;
-        let pecaremovida = document.getElementById(posivelposicao);
-        console.log("peça removida: " + posivelposicao);
-        pecaremovida.removeChild(pecaremovida.firstChild);
-        //document.getElementById(posivelposicao).removeChild(document.get);
-    }
-    if(document.getElementById('pecaselecionada').innerHTML == '2'){
-        let posivelposicao = pecadeletada.id.split("");
-        let posivelposicaoy = posivelposicao[3];
-        let posivelposicaox = posivelposicao[1];
-        posivelposicao = parseInt(posivelposicaox);
-        posivelposicao++;
-
-        posivelposicao = "i"+posivelposicao+"j"+posivelposicaoy;
-        let pecaremovida = document.getElementById(posivelposicao);
-        console.log("peça removida: " + posivelposicao);
-        pecaremovida.removeChild(pecaremovida.firstChild);
-        //document.getElementById(posivelposicao).removeChild(document.get);
-    }
+const apagapeca = () =>{
+    let nomepecaremovida = document.getElementById("posicaopecaselecionada").textContent;
+    let pecaremovida = document.getElementById(nomepecaremovida);
+    console.log("peça removida: " + nomepecaremovida);
+    pecaremovida.removeChild(pecaremovida.firstChild);
+    //document.getElementById(posivelposicao).removeChild(document.get);
 }
 
-const voltarcor = (quadrado) =>{
-    let posit = quadrado.id;
-    let posivelposicaoS = posit.split("");
-    let posivelposicaoSX = posivelposicaoS[3];
-    let posivelposicaoSY = posivelposicaoS[1];
+const voltarcor = () =>{
+    for(let i = 0; i < 8; i++){
+        for(let j = 0; j < 8; j++){
+            let textoquadrado = "i"+i+"j"+j;
+            let quadrado = document.getElementById(textoquadrado);
 
-    if((parseInt(posivelposicaoSX) + parseInt(posivelposicaoSY)) % 2){
-        quadrado.style.backgroundColor = "black";
-    } else{
-        quadrado.style.backgroundColor = "white";
+            if(i % 2 == 0){
+                if(j % 2 == 0){
+                    quadrado.style.backgroundColor = 'white';
+                    quadrado.style.color = 'black';
+                } else{
+                    quadrado.style.backgroundColor = 'black';
+                    quadrado.style.color = 'white';
+                }
+            } else{
+                if(j % 2 == 0){
+                    quadrado.style.backgroundColor = 'black';
+                    quadrado.style.color = 'white';
+                }
+                else{
+                    quadrado.style.backgroundColor = 'white';
+                    quadrado.style.color = 'black';
+                }
+            }
+        }
     }
-    apagapeca(quadrado);
 }
 
 const escolherPeca = (e) => {
@@ -166,81 +163,435 @@ const escolherPeca = (e) => {
     {
         if(e.target.id == "peao")
         {
+            voltarcor();
+            document.getElementById("posicaopecaselecionada").innerHTML = e.target.parentNode.id;
+
             let posivelposicao = e.target.parentNode.id.split("");
             let posivelposicaoy = posivelposicao[3];
-            let posivelposicaox = posivelposicao[1];
+            let posivelposicaox = posivelposicao[1]; 
             posivelposicao = parseInt(posivelposicaox);
             posivelposicao ++;
+            
+            let posivelposicaoleft = (posivelposicaoy - 1);
+            let posivelposicaoright = parseInt(posivelposicaoy) + 1;
 
-            if((posivelposicao + parseInt(posivelposicaoy)) % 2){
-                var arroz = "black";
-            } else{
-                var arroz = "white";
+            if (posivelposicaoleft >= 0)
+            {
+                var posicaocampoX1 = "i"+posivelposicao+"j"+posivelposicaoleft;
+
+                if (document.getElementById(posicaocampoX1).hasChildNodes()){
+                    document.getElementById(posicaocampoX1).style.backgroundColor = "blue";
+                }
             }
 
-            console.log("cor armazenada: " + arroz);
+            if (posivelposicaoright <= 7)
+            {
+                var posicaocampoX2 = "i"+posivelposicao+"j"+posivelposicaoright;
+
+                if (document.getElementById(posicaocampoX2).hasChildNodes()){
+                    document.getElementById(posicaocampoX2).style.backgroundColor = "blue";
+                }
+            }
 
             posivelposicao = "i"+posivelposicao+"j"+posivelposicaoy;
 
             let laranja = document.getElementById('posicao');
             laranja.innerHTML = posivelposicao;
-            document.getElementById('pecaselecionada').innerHTML = "1";
-
-            if(document.getElementById(posivelposicao).style.backgroundColor == "blue"){
-                document.getElementById(posivelposicao).style.backgroundColor = arroz;
-            } else{
-                document.getElementById(posivelposicao).style.backgroundColor = "blue";
+            document.getElementById("pecaselecionada").innerHTML = "1"
+            
+            if(document.getElementById(posivelposicao).hasChildNodes() == false){
+                if(document.getElementById(posivelposicao).style.backgroundColor == "blue"){
+                    voltarcor();
+                } else{
+                    document.getElementById(posivelposicao).style.backgroundColor = "blue";
+                }
             }
+
+            console.log("posivelposicaoleft " + posivelposicaoleft)
+            console.log("posivelposicaoright " + posivelposicaoright)
         }
         if(e.target.id == "peaobranco")
         {
+            voltarcor();
+            document.getElementById("posicaopecaselecionada").innerHTML = e.target.parentNode.id;
+
             let posivelposicao = e.target.parentNode.id.split("");
             let posivelposicaoy = posivelposicao[3];
             let posivelposicaox = posivelposicao[1];
             posivelposicao = parseInt(posivelposicaox);
             posivelposicao += -1;
 
-            if((posivelposicao + parseInt(posivelposicaoy)) % 2){
-                var arroz = "black";
-            } else{
-                var arroz = "white";
+            let posivelposicaoleft = (posivelposicaoy - 1);
+            let posivelposicaoright = parseInt(posivelposicaoy) + 1;
+
+            if (posivelposicaoleft >= 0)
+            {
+                var posicaocampoX1 = "i"+posivelposicao+"j"+posivelposicaoleft;
+
+                if (document.getElementById(posicaocampoX1).hasChildNodes()){
+                    document.getElementById(posicaocampoX1).style.backgroundColor = "green";
+                }
             }
 
-            console.log("cor armazenada: " + arroz);
+            if (posivelposicaoright <= 7)
+            {
+                var posicaocampoX2 = "i"+posivelposicao+"j"+posivelposicaoright;
+
+                if (document.getElementById(posicaocampoX2).hasChildNodes()){
+                    document.getElementById(posicaocampoX2).style.backgroundColor = "green";
+                }
+            }
 
             posivelposicao = "i"+posivelposicao+"j"+posivelposicaoy;
 
             let laranja = document.getElementById('posicao');
             laranja.innerHTML = posivelposicao;
-            document.getElementById('pecaselecionada').innerHTML = "2";
+            document.getElementById("pecaselecionada").innerHTML = "2"
 
-            if(document.getElementById(posivelposicao).style.backgroundColor == "green"){
-                document.getElementById(posivelposicao).style.backgroundColor = arroz;
-            } else{
-                document.getElementById(posivelposicao).style.backgroundColor = "green";
+            if(document.getElementById(posivelposicao).hasChildNodes() == false){
+                if(document.getElementById(posivelposicao).style.backgroundColor == "green"){
+                    voltarcor();
+                } else{
+                    document.getElementById(posivelposicao).style.backgroundColor = "green";
+                }
+            }
+
+            console.log("posivelposicaoleft " + posivelposicaoleft)
+            console.log("posivelposicaoright " + posivelposicaoright)
+        }
+        if(e.target.id == "torre"){
+            voltarcor();
+            document.getElementById("posicaopecaselecionada").innerHTML = e.target.parentNode.id;
+            let posivelposicao = e.target.parentNode.id.split("");
+            console.log(posivelposicao);
+            let posivelposicaoy = posivelposicao[3];
+            let posivelposicaox = posivelposicao[1];
+            document.getElementById("pecaselecionada").innerHTML = "3"
+            let posivelposicaoya = Number(posivelposicaoy)
+            posivelposicaoya++
+            let posivelposicaoxa = Number(posivelposicaox)
+            posivelposicaoxa++
+            
+            //movi pra direita
+            for (i = posivelposicaoya; i <= 7; i++){
+                let quadrado = "i" + posivelposicao[1] + "j" + i
+                document.getElementById(quadrado).style.backgroundColor = "blue";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+            
+            //movi pra esquerda
+            for (i = posivelposicaoy - 1; i >= 0; i--){
+                let quadrado = "i" + posivelposicao[1] + "j" + i
+                document.getElementById(quadrado).style.backgroundColor = "blue";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+
+            //movi pra baixo
+            for (i = posivelposicaoxa; i <= 7; i++){
+                let quadrado = "i" + i + "j" + posivelposicao[3]
+                document.getElementById(quadrado).style.backgroundColor = "blue";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+            
+            //movi pra cima
+            for (i = posivelposicaox - 1; i >= 0; i--){
+                let quadrado = "i" + i + "j" + posivelposicao[3]
+                document.getElementById(quadrado).style.backgroundColor = "blue";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
             }
         }
+        if(e.target.id == "torrebranca"){
+            voltarcor();
+            document.getElementById("posicaopecaselecionada").innerHTML = e.target.parentNode.id;
+            let posivelposicao = e.target.parentNode.id.split("");
+            console.log(posivelposicao);
+            let posivelposicaoy = posivelposicao[3];
+            let posivelposicaox = posivelposicao[1];
+            document.getElementById("pecaselecionada").innerHTML = "4"
+            let posivelposicaoya = Number(posivelposicaoy)
+            posivelposicaoya++
+            let posivelposicaoxa = Number(posivelposicaox)
+            posivelposicaoxa++
+            
+            //movi pra direita
+            for (i = posivelposicaoya; i <= 7; i++){
+                let quadrado = "i" + posivelposicao[1] + "j" + i
+                document.getElementById(quadrado).style.backgroundColor = "green";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+            
+            //movi pra esquerda
+            for (i = posivelposicaoy - 1; i >= 0; i--){
+                let quadrado = "i" + posivelposicao[1] + "j" + i
+                document.getElementById(quadrado).style.backgroundColor = "green";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+
+            //movi pra baixo
+            for (i = posivelposicaoxa; i <= 7; i++){
+                let quadrado = "i" + i + "j" + posivelposicao[3]
+                document.getElementById(quadrado).style.backgroundColor = "green";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+            
+            //movi pra cima
+            for (i = posivelposicaox - 1; i >= 0; i--){
+                let quadrado = "i" + i + "j" + posivelposicao[3]
+                document.getElementById(quadrado).style.backgroundColor = "green";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+        }
+        if(e.target.id == "cavalo"){
+            voltarcor();
+            document.getElementById("posicaopecaselecionada").innerHTML = e.target.parentNode.id;
+            let posivelposicao = e.target.parentNode.id.split("");
+            console.log(posivelposicao);
+            let posivelposicaoy = posivelposicao[3];
+            let posivelposicaox = posivelposicao[1];
+            document.getElementById("pecaselecionada").innerHTML = "5"
+            let posivelposicaoya = Number(posivelposicaoy)
+            let posivelposicaoxa = Number(posivelposicaox)
+
+
+            //baixo
+            if(posivelposicaox < 6 && posivelposicaoy > 0){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya - 1
+                posivelposicaoxa = posivelposicaoxa + 2
+                let baixo1 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo1).style.backgroundColor = "blue";
+            }
+            if(posivelposicaox < 6 && posivelposicaoy < 7){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya + 1
+                posivelposicaoxa = posivelposicaoxa + 2
+                let baixo2 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo2).style.backgroundColor = "blue";
+            }
+            //cima
+            if(posivelposicaox > 1 && posivelposicaoy > 0){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya - 1
+                posivelposicaoxa = posivelposicaoxa - 2
+                let baixo1 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo1).style.backgroundColor = "blue";
+            }
+            if(posivelposicaox > 1 && posivelposicaoy < 7){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya + 1
+                posivelposicaoxa = posivelposicaoxa - 2
+                let baixo2 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo2).style.backgroundColor = "blue";
+            }
+            //direita
+            if(posivelposicaox < 7 && posivelposicaoy < 6){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya + 2
+                posivelposicaoxa = posivelposicaoxa - 1
+                let baixo1 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo1).style.backgroundColor = "blue";
+            }
+            if(posivelposicaox < 7 && posivelposicaoy < 6){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya + 2
+                posivelposicaoxa = posivelposicaoxa + 1
+                let baixo2 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo2).style.backgroundColor = "blue";
+            }
+            //esquerda
+            if(posivelposicaox > 1 && posivelposicaoy > 1){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya - 2
+                posivelposicaoxa = posivelposicaoxa - 1
+                let baixo1 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo1).style.backgroundColor = "blue";
+            }
+            if(posivelposicaox < 7 && posivelposicaoy > 1){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya - 2
+                posivelposicaoxa = posivelposicaoxa + 1
+                let baixo2 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo2).style.backgroundColor = "blue";
+            }
+        }
+        if(e.target.id == "cavalobranco"){
+            voltarcor();
+            document.getElementById("posicaopecaselecionada").innerHTML = e.target.parentNode.id;
+            let posivelposicao = e.target.parentNode.id.split("");
+            console.log(posivelposicao);
+            let posivelposicaoy = posivelposicao[3];
+            let posivelposicaox = posivelposicao[1];
+            document.getElementById("pecaselecionada").innerHTML = "6"
+            let posivelposicaoya = Number(posivelposicaoy)
+            let posivelposicaoxa = Number(posivelposicaox)
+
+
+            //baixo
+            if(posivelposicaox < 6 && posivelposicaoy > 0){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya - 1
+                posivelposicaoxa = posivelposicaoxa + 2
+                let baixo1 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo1).style.backgroundColor = "green";
+            }
+            if(posivelposicaox < 6 && posivelposicaoy < 7){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya + 1
+                posivelposicaoxa = posivelposicaoxa + 2
+                let baixo2 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo2).style.backgroundColor = "green";
+            }
+            //cima
+            if(posivelposicaox > 1 && posivelposicaoy > 0){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya - 1
+                posivelposicaoxa = posivelposicaoxa - 2
+                let baixo1 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo1).style.backgroundColor = "green";
+            }
+            if(posivelposicaox > 1 && posivelposicaoy < 7){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya + 1
+                posivelposicaoxa = posivelposicaoxa - 2
+                let baixo2 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo2).style.backgroundColor = "green";
+            }
+            //direita
+            if(posivelposicaox < 7 && posivelposicaoy < 6){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya + 2
+                posivelposicaoxa = posivelposicaoxa - 1
+                let baixo1 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo1).style.backgroundColor = "green";
+            }
+            if(posivelposicaox < 7 && posivelposicaoy < 6){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya + 2
+                posivelposicaoxa = posivelposicaoxa + 1
+                let baixo2 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo2).style.backgroundColor = "green";
+            }
+            //esquerda
+            if(posivelposicaox > 1 && posivelposicaoy > 1){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya - 2
+                posivelposicaoxa = posivelposicaoxa - 1
+                let baixo1 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo1).style.backgroundColor = "green";
+            }
+            if(posivelposicaox < 7 && posivelposicaoy > 1){
+                posivelposicaoya = Number(posivelposicaoy)
+                posivelposicaoxa = Number(posivelposicaox)
+                posivelposicaoya = posivelposicaoya - 2
+                posivelposicaoxa = posivelposicaoxa + 1
+                let baixo2 = "i" + posivelposicaoxa + "j" + posivelposicaoya
+                document.getElementById(baixo2).style.backgroundColor = "green";
+            }
+        }
+
+        //Eliminação
         if(e.target.style.backgroundColor == "blue")
         {
-            let posivelposicao = document.querySelector('span').innerHTML;
-            console.log(posivelposicao);
-            let peao = document.createElement('img');
-            peao.setAttribute("id", `peao`);
-            peao.setAttribute("class", `peca`);
-            peao.setAttribute("src", `./assets/dama.png`);
-            document.getElementById(posivelposicao).appendChild(peao);
-            voltarcor(e.target);
+            //verifica se o div nao esta vazio
+            if (e.target.hasChildNodes()){
+                e.target.removeChild(e.target.firstChild);
+            }
+            if(document.getElementById("pecaselecionada").innerHTML == "1"){
+                let posivelposicao = e.target.id;
+                console.log("movida para: " + posivelposicao);
+                let peao = document.createElement('img');
+                peao.setAttribute("id", `peao`);
+                peao.setAttribute("class", `peca`);
+                peao.setAttribute("src", `./assets/dama.png`);
+                document.getElementById(posivelposicao).appendChild(peao);
+            }
+            if(document.getElementById("pecaselecionada").innerHTML == "3"){
+                let posivelposicao = e.target.id;
+                console.log("movida para: " + posivelposicao);
+                let torre = document.createElement('img');
+                torre.setAttribute("id", `torre`);
+                torre.setAttribute("class", `peca`);
+                torre.setAttribute("src", `./assets/torre.png`);
+                document.getElementById(posivelposicao).appendChild(torre);
+            }
+            if(document.getElementById("pecaselecionada").innerHTML == "5"){
+                let posivelposicao = e.target.id;
+                console.log("movida para: " + posivelposicao);
+                let cavalo = document.createElement('img');
+                cavalo.setAttribute("id", `cavalo`);
+                cavalo.setAttribute("class", `peca`);
+                cavalo.setAttribute("src", `./assets/cavalo.png`);
+                document.getElementById(posivelposicao).appendChild(cavalo);
+            }
+            voltarcor();
+            apagapeca();
         }
         if(e.target.style.backgroundColor == "green")
         {
-            let posivelposicao = document.querySelector('span').innerHTML;
-            console.log("nova posição: " + posivelposicao);
-            let peao = document.createElement('img');
-            peao.setAttribute("id", `peaobranco`);
-            peao.setAttribute("class", `peca pecabranca`);
-            peao.setAttribute("src", `./assets/dama.png`);
-            document.getElementById(posivelposicao).appendChild(peao);
-            voltarcor(e.target);
+            //elimina a peça inimiga
+            if (e.target.hasChildNodes()){
+                e.target.removeChild(e.target.firstChild);
+            }
+            if(document.getElementById("pecaselecionada").innerHTML == "2"){
+                let posivelposicao = e.target.id;
+                console.log("nova posição: " + posivelposicao);
+                let peao = document.createElement('img');
+                peao.setAttribute("id", `peaobranco`);
+                peao.setAttribute("class", `peca pecabranca`);
+                peao.setAttribute("src", `./assets/dama.png`);
+                document.getElementById(posivelposicao).appendChild(peao);
+            }
+            if(document.getElementById("pecaselecionada").innerHTML == "4"){
+                let posivelposicao = e.target.id;
+                console.log("movida para: " + posivelposicao);
+                let torre = document.createElement('img');
+                torre.setAttribute("id", `torrebranca`);
+                torre.setAttribute("class", `peca pecabranca`);
+                torre.setAttribute("src", `./assets/torre.png`);
+                document.getElementById(posivelposicao).appendChild(torre);
+            }
+            if(document.getElementById("pecaselecionada").innerHTML == "6"){
+                let posivelposicao = e.target.id;
+                console.log("movida para: " + posivelposicao);
+                let cavalo = document.createElement('img');
+                cavalo.setAttribute("id", `cavalobranco`);
+                cavalo.setAttribute("class", `peca pecabranca`);
+                cavalo.setAttribute("src", `./assets/cavalo.png`);
+                document.getElementById(posivelposicao).appendChild(cavalo);
+            }
+            voltarcor();
+            apagapeca();
         }
     }
 }
