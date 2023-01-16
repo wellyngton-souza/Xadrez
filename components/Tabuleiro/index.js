@@ -78,12 +78,14 @@ gerarTabuleiro = () =>{
             //gerarBispo
             if(i == 0 && j == 2 || i == 0 && j == 5){
                 let bispo = document.createElement('img');
+                bispo.setAttribute("id",`bispo`);
                 bispo.setAttribute("class", `peca`);
                 bispo.setAttribute("src", `./assets/bispo.png`);
                 quadrado.appendChild(bispo);
             }
             if(i == 7 && j == 2 || i == 7 && j == 5){
                 let bispo = document.createElement('img');
+                bispo.setAttribute("id",`bispobranco`);
                 bispo.setAttribute("class", `peca pecabranca`);
                 bispo.setAttribute("src", `./assets/bispo.png`);
                 quadrado.appendChild(bispo);
@@ -91,12 +93,14 @@ gerarTabuleiro = () =>{
             //gerarRei
             if(i == 0 && j == 4){
                 let rei = document.createElement('img');
+                rei.setAttribute("id",`rei`);
                 rei.setAttribute("class", `peca`);
                 rei.setAttribute("src", `./assets/rei.png`);
                 quadrado.appendChild(rei);
             }
             if(i == 7 && j == 3){
                 let rei = document.createElement('img');
+                rei.setAttribute("id",`reibranco`);
                 rei.setAttribute("class", `peca pecabranca`);
                 rei.setAttribute("src", `./assets/rei.png`);
                 quadrado.appendChild(rei);
@@ -104,12 +108,14 @@ gerarTabuleiro = () =>{
             //gerarRainha
             if(i == 0 && j == 3){
                 let rainha = document.createElement('img');
+                rainha.setAttribute("id",`rainha`);
                 rainha.setAttribute("class", `peca`);
                 rainha.setAttribute("src", `./assets/rainha.png`);
                 quadrado.appendChild(rainha);
             }
             if(i == 7 && j == 4){
                 let rainha = document.createElement('img');
+                rainha.setAttribute("id",`rainhabranco`);
                 rainha.setAttribute("class", `peca pecabranca`);
                 rainha.setAttribute("src", `./assets/rainha.png`);
                 quadrado.appendChild(rainha);
@@ -519,6 +525,514 @@ const escolherPeca = (e) => {
                 document.getElementById(baixo2).style.backgroundColor = "green";
             }
         }
+        if(e.target.id == "bispo"){
+            voltarcor();
+            document.getElementById("posicaopecaselecionada").innerHTML = e.target.parentNode.id;
+
+            let posivelposicao = e.target.parentNode.id.split("");
+            let posivelposicaoy = posivelposicao[3];
+            let posivelposicaox = posivelposicao[1]; 
+            let posivelposicaoxa = Number(posivelposicaox);
+            let posivelposicaoya = Number(posivelposicaoy);
+
+            document.getElementById("pecaselecionada").innerHTML = "7";
+
+            //baixo direita
+            for(i=0; i<8;i++){
+                posivelposicaoxa++;
+                posivelposicaoya++;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa < 8 && posivelposicaoya < 8){
+                    document.getElementById(novaposicao).style.backgroundColor = "blue";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+            //baixo esquerda
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            for(i=0; i<8;i++){
+                posivelposicaoxa = posivelposicaoxa + 1;
+                posivelposicaoya = posivelposicaoya - 1;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa < 8 && posivelposicaoya >= 0){
+                    document.getElementById(novaposicao).style.backgroundColor = "blue";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+            //cima esquerda
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            for(i=0; i<8;i++){
+                posivelposicaoxa = posivelposicaoxa - 1;
+                posivelposicaoya = posivelposicaoya - 1;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa >= 0 && posivelposicaoya >= 0){
+                    document.getElementById(novaposicao).style.backgroundColor = "blue";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+            //cima direita
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            for(i=0; i<8;i++){
+                posivelposicaoxa = posivelposicaoxa - 1;
+                posivelposicaoya = posivelposicaoya + 1;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa >= 0 && posivelposicaoya < 8){
+                    document.getElementById(novaposicao).style.backgroundColor = "blue";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+        }
+        if(e.target.id == "bispobranco"){
+            voltarcor();
+            document.getElementById("posicaopecaselecionada").innerHTML = e.target.parentNode.id;
+
+            let posivelposicao = e.target.parentNode.id.split("");
+            let posivelposicaoy = posivelposicao[3];
+            let posivelposicaox = posivelposicao[1]; 
+            let posivelposicaoxa = Number(posivelposicaox);
+            let posivelposicaoya = Number(posivelposicaoy);
+
+            document.getElementById("pecaselecionada").innerHTML = "8";
+
+            //baixo direita
+            for(i=0; i<8;i++){
+                posivelposicaoxa++;
+                posivelposicaoya++;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa < 8 && posivelposicaoya < 8){
+                    document.getElementById(novaposicao).style.backgroundColor = "green";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+            //baixo esquerda
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            for(i=0; i<8;i++){
+                posivelposicaoxa = posivelposicaoxa + 1;
+                posivelposicaoya = posivelposicaoya - 1;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa < 8 && posivelposicaoya >= 0){
+                    document.getElementById(novaposicao).style.backgroundColor = "green";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+            //cima esquerda
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            for(i=0; i<8;i++){
+                posivelposicaoxa = posivelposicaoxa - 1;
+                posivelposicaoya = posivelposicaoya - 1;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa >= 0 && posivelposicaoya >= 0){
+                    document.getElementById(novaposicao).style.backgroundColor = "green";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+            //cima direita
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            for(i=0; i<8;i++){
+                posivelposicaoxa = posivelposicaoxa - 1;
+                posivelposicaoya = posivelposicaoya + 1;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa >= 0 && posivelposicaoya < 8){
+                    document.getElementById(novaposicao).style.backgroundColor = "green";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+        }
+        if(e.target.id == "rei"){
+            voltarcor();
+            document.getElementById("posicaopecaselecionada").innerHTML = e.target.parentNode.id;
+
+            let posivelposicao = e.target.parentNode.id.split("");
+            let posivelposicaoy = posivelposicao[3];
+            let posivelposicaox = posivelposicao[1]; 
+            let posivelposicaoxa = Number(posivelposicaox);
+            let posivelposicaoya = Number(posivelposicaoy);
+
+            document.getElementById("pecaselecionada").innerHTML = "9";
+
+            if(posivelposicaoxa < 7){
+                //baixo
+                posivelposicaoxa++;
+                let novaposicaobaixo = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                document.getElementById(novaposicaobaixo).style.backgroundColor = "blue";
+                //baixodireita
+                posivelposicaoxa = Number(posivelposicaox);
+                posivelposicaoya = Number(posivelposicaoy);
+                if(posivelposicaoya < 7){
+                    posivelposicaoxa++;
+                    posivelposicaoya++;
+                    let novaposicaobaixodireita = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                    document.getElementById(novaposicaobaixodireita).style.backgroundColor = "blue";
+                }
+
+                //baixoesquerda
+                posivelposicaoxa = Number(posivelposicaox);
+                posivelposicaoya = Number(posivelposicaoy);
+                if(posivelposicaoya > 0){
+                    posivelposicaoxa++;
+                    posivelposicaoya--;
+                    let novaposicaobaixoesquerda = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                    document.getElementById(novaposicaobaixoesquerda).style.backgroundColor = "blue";
+                }
+            }
+            //esquerda
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            if(posivelposicaoya > 0){
+                posivelposicaoya--;
+                let novaposicaoesquerda = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                document.getElementById(novaposicaoesquerda).style.backgroundColor = "blue";
+            }
+            //direita
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            if(posivelposicaoya < 7){
+                posivelposicaoya++;
+                let novaposicaodireita = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                document.getElementById(novaposicaodireita).style.backgroundColor = "blue";
+            }
+            if(posivelposicaoxa > 0){
+                //cimadireita
+                posivelposicaoxa = Number(posivelposicaox);
+                posivelposicaoya = Number(posivelposicaoy);
+                if(posivelposicaoya < 7){
+                    posivelposicaoxa--;
+                    posivelposicaoya++;
+                    let novaposicaocimadireita = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                    document.getElementById(novaposicaocimadireita).style.backgroundColor = "blue";
+                }
+                //cimaesquerda
+                    posivelposicaoxa = Number(posivelposicaox);
+                    posivelposicaoya = Number(posivelposicaoy);
+                if(posivelposicaoya > 0){
+                    posivelposicaoxa--;
+                    posivelposicaoya--;
+                    let novaposicaocimaesquerda = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                    document.getElementById(novaposicaocimaesquerda).style.backgroundColor = "blue";
+                }
+                //cima
+                posivelposicaoxa = Number(posivelposicaox);
+                posivelposicaoya = Number(posivelposicaoy);
+                posivelposicaoxa--;
+                let novaposicaocima = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                document.getElementById(novaposicaocima).style.backgroundColor = "blue";
+            }
+        }
+        if(e.target.id == "reibranco"){
+            voltarcor();
+            document.getElementById("posicaopecaselecionada").innerHTML = e.target.parentNode.id;
+
+            let posivelposicao = e.target.parentNode.id.split("");
+            let posivelposicaoy = posivelposicao[3];
+            let posivelposicaox = posivelposicao[1]; 
+            let posivelposicaoxa = Number(posivelposicaox);
+            let posivelposicaoya = Number(posivelposicaoy);
+
+            document.getElementById("pecaselecionada").innerHTML = "10";
+
+            if(posivelposicaoxa < 7){
+                //baixo
+                posivelposicaoxa++;
+                let novaposicaobaixo = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                document.getElementById(novaposicaobaixo).style.backgroundColor = "green";
+                //baixodireita
+                posivelposicaoxa = Number(posivelposicaox);
+                posivelposicaoya = Number(posivelposicaoy);
+                if(posivelposicaoya < 7){
+                    posivelposicaoxa++;
+                    posivelposicaoya++;
+                    let novaposicaobaixodireita = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                    document.getElementById(novaposicaobaixodireita).style.backgroundColor = "green";
+                }
+
+                //baixoesquerda
+                posivelposicaoxa = Number(posivelposicaox);
+                posivelposicaoya = Number(posivelposicaoy);
+                if(posivelposicaoya > 0){
+                    posivelposicaoxa++;
+                    posivelposicaoya--;
+                    let novaposicaobaixoesquerda = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                    document.getElementById(novaposicaobaixoesquerda).style.backgroundColor = "green";
+                }
+            }
+            //esquerda
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            if(posivelposicaoya > 0){
+                posivelposicaoya--;
+                let novaposicaoesquerda = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                document.getElementById(novaposicaoesquerda).style.backgroundColor = "green";
+            }
+            //direita
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            if(posivelposicaoya < 7){
+                posivelposicaoya++;
+                let novaposicaodireita = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                document.getElementById(novaposicaodireita).style.backgroundColor = "green";
+            }
+            if(posivelposicaoxa > 0){
+                //cimadireita
+                posivelposicaoxa = Number(posivelposicaox);
+                posivelposicaoya = Number(posivelposicaoy);
+                if(posivelposicaoya < 7){
+                    posivelposicaoxa--;
+                    posivelposicaoya++;
+                    let novaposicaocimadireita = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                    document.getElementById(novaposicaocimadireita).style.backgroundColor = "green";
+                }
+                //cimaesquerda
+                    posivelposicaoxa = Number(posivelposicaox);
+                    posivelposicaoya = Number(posivelposicaoy);
+                if(posivelposicaoya > 0){
+                    posivelposicaoxa--;
+                    posivelposicaoya--;
+                    let novaposicaocimaesquerda = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                    document.getElementById(novaposicaocimaesquerda).style.backgroundColor = "green";
+                }
+                //cima
+                posivelposicaoxa = Number(posivelposicaox);
+                posivelposicaoya = Number(posivelposicaoy);
+                posivelposicaoxa--;
+                let novaposicaocima = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                document.getElementById(novaposicaocima).style.backgroundColor = "green";
+            }
+        }
+        if(e.target.id == "rainha"){
+            voltarcor();
+            document.getElementById("posicaopecaselecionada").innerHTML = e.target.parentNode.id;
+
+            let posivelposicao = e.target.parentNode.id.split("");
+            let posivelposicaoy = posivelposicao[3];
+            let posivelposicaox = posivelposicao[1]; 
+            let posivelposicaoxa = Number(posivelposicaox);
+            let posivelposicaoya = Number(posivelposicaoy);
+            posivelposicaoya++;
+            posivelposicaoxa++;
+
+            document.getElementById("pecaselecionada").innerHTML = "11";
+            
+            //movi pra direita
+            for (i = posivelposicaoya; i <= 7; i++){
+                let quadrado = "i" + posivelposicao[1] + "j" + i
+                document.getElementById(quadrado).style.backgroundColor = "blue";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+            
+            //movi pra esquerda
+            for (i = posivelposicaoy - 1; i >= 0; i--){
+                let quadrado = "i" + posivelposicao[1] + "j" + i
+                document.getElementById(quadrado).style.backgroundColor = "blue";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+
+            //movi pra baixo
+            for (i = posivelposicaoxa; i <= 7; i++){
+                let quadrado = "i" + i + "j" + posivelposicao[3]
+                document.getElementById(quadrado).style.backgroundColor = "blue";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+            
+            //movi pra cima
+            for (i = posivelposicaox - 1; i >= 0; i--){
+                let quadrado = "i" + i + "j" + posivelposicao[3]
+                document.getElementById(quadrado).style.backgroundColor = "blue";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            //baixo direita
+            for(i=0; i<8;i++){
+                posivelposicaoxa++;
+                posivelposicaoya++;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa < 8 && posivelposicaoya < 8){
+                    document.getElementById(novaposicao).style.backgroundColor = "blue";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+            //baixo esquerda
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            for(i=0; i<8;i++){
+                posivelposicaoxa = posivelposicaoxa + 1;
+                posivelposicaoya = posivelposicaoya - 1;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa < 8 && posivelposicaoya >= 0){
+                    document.getElementById(novaposicao).style.backgroundColor = "blue";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+            //cima esquerda
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            for(i=0; i<8;i++){
+                posivelposicaoxa = posivelposicaoxa - 1;
+                posivelposicaoya = posivelposicaoya - 1;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa >= 0 && posivelposicaoya >= 0){
+                    document.getElementById(novaposicao).style.backgroundColor = "blue";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+            //cima direita
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            for(i=0; i<8;i++){
+                posivelposicaoxa = posivelposicaoxa - 1;
+                posivelposicaoya = posivelposicaoya + 1;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa >= 0 && posivelposicaoya < 8){
+                    document.getElementById(novaposicao).style.backgroundColor = "blue";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+        }
+        if(e.target.id == "rainhabranco"){
+            voltarcor();
+            document.getElementById("posicaopecaselecionada").innerHTML = e.target.parentNode.id;
+
+            let posivelposicao = e.target.parentNode.id.split("");
+            let posivelposicaoy = posivelposicao[3];
+            let posivelposicaox = posivelposicao[1]; 
+            let posivelposicaoxa = Number(posivelposicaox);
+            let posivelposicaoya = Number(posivelposicaoy);
+            posivelposicaoya++;
+            posivelposicaoxa++;
+
+            document.getElementById("pecaselecionada").innerHTML = "12";
+            
+            //movi pra direita
+            for (i = posivelposicaoya; i <= 7; i++){
+                let quadrado = "i" + posivelposicao[1] + "j" + i
+                document.getElementById(quadrado).style.backgroundColor = "green";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+            
+            //movi pra esquerda
+            for (i = posivelposicaoy - 1; i >= 0; i--){
+                let quadrado = "i" + posivelposicao[1] + "j" + i
+                document.getElementById(quadrado).style.backgroundColor = "green";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+
+            //movi pra baixo
+            for (i = posivelposicaoxa; i <= 7; i++){
+                let quadrado = "i" + i + "j" + posivelposicao[3]
+                document.getElementById(quadrado).style.backgroundColor = "green";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+            
+            //movi pra cima
+            for (i = posivelposicaox - 1; i >= 0; i--){
+                let quadrado = "i" + i + "j" + posivelposicao[3]
+                document.getElementById(quadrado).style.backgroundColor = "green";
+                if (document.getElementById(quadrado).hasChildNodes()){
+                    break
+                }
+            }
+
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            //baixo direita
+            for(i=0; i<8;i++){
+                posivelposicaoxa++;
+                posivelposicaoya++;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa < 8 && posivelposicaoya < 8){
+                    document.getElementById(novaposicao).style.backgroundColor = "green";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+            //baixo esquerda
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            for(i=0; i<8;i++){
+                posivelposicaoxa = posivelposicaoxa + 1;
+                posivelposicaoya = posivelposicaoya - 1;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa < 8 && posivelposicaoya >= 0){
+                    document.getElementById(novaposicao).style.backgroundColor = "green";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+            //cima esquerda
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            for(i=0; i<8;i++){
+                posivelposicaoxa = posivelposicaoxa - 1;
+                posivelposicaoya = posivelposicaoya - 1;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa >= 0 && posivelposicaoya >= 0){
+                    document.getElementById(novaposicao).style.backgroundColor = "green";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+            //cima direita
+            posivelposicaoxa = Number(posivelposicaox);
+            posivelposicaoya = Number(posivelposicaoy);
+            for(i=0; i<8;i++){
+                posivelposicaoxa = posivelposicaoxa - 1;
+                posivelposicaoya = posivelposicaoya + 1;
+                let novaposicao = "i" + posivelposicaoxa + "j" + posivelposicaoya;
+                if(posivelposicaoxa >= 0 && posivelposicaoya < 8){
+                    document.getElementById(novaposicao).style.backgroundColor = "green";
+                    if (document.getElementById(novaposicao).hasChildNodes()){
+                        break
+                    }
+                }
+            }
+        }
 
         //Eliminação
         if(e.target.style.backgroundColor == "blue")
@@ -553,6 +1067,33 @@ const escolherPeca = (e) => {
                 cavalo.setAttribute("class", `peca`);
                 cavalo.setAttribute("src", `./assets/cavalo.png`);
                 document.getElementById(posivelposicao).appendChild(cavalo);
+            }
+            if(document.getElementById("pecaselecionada").innerHTML == "7"){
+                let posivelposicao = e.target.id;
+                console.log("movida para: " + posivelposicao);
+                let bispo = document.createElement('img');
+                bispo.setAttribute("id", `bispo`);
+                bispo.setAttribute("class", `peca`);
+                bispo.setAttribute("src", `./assets/bispo.png`);
+                document.getElementById(posivelposicao).appendChild(bispo);
+            }
+            if(document.getElementById("pecaselecionada").innerHTML == "9"){
+                let posivelposicao = e.target.id;
+                console.log("movida para: " + posivelposicao);
+                let rei = document.createElement('img');
+                rei.setAttribute("id", `rei`);
+                rei.setAttribute("class", `peca`);
+                rei.setAttribute("src", `./assets/rei.png`);
+                document.getElementById(posivelposicao).appendChild(rei);
+            }
+            if(document.getElementById("pecaselecionada").innerHTML == "11"){
+                let posivelposicao = e.target.id;
+                console.log("movida para: " + posivelposicao);
+                let rainha = document.createElement('img');
+                rainha.setAttribute("id", `rainha`);
+                rainha.setAttribute("class", `peca`);
+                rainha.setAttribute("src", `./assets/rainha.png`);
+                document.getElementById(posivelposicao).appendChild(rainha);
             }
             voltarcor();
             apagapeca();
@@ -589,6 +1130,33 @@ const escolherPeca = (e) => {
                 cavalo.setAttribute("class", `peca pecabranca`);
                 cavalo.setAttribute("src", `./assets/cavalo.png`);
                 document.getElementById(posivelposicao).appendChild(cavalo);
+            }
+            if(document.getElementById("pecaselecionada").innerHTML == "8"){
+                let posivelposicao = e.target.id;
+                console.log("movida para: " + posivelposicao);
+                let bispo = document.createElement('img');
+                bispo.setAttribute("id", `bispobranco`);
+                bispo.setAttribute("class", `peca pecabranca`);
+                bispo.setAttribute("src", `./assets/bispo.png`);
+                document.getElementById(posivelposicao).appendChild(bispo);
+            }
+            if(document.getElementById("pecaselecionada").innerHTML == "10"){
+                let posivelposicao = e.target.id;
+                console.log("movida para: " + posivelposicao);
+                let rei = document.createElement('img');
+                rei.setAttribute("id", `reibranco`);
+                rei.setAttribute("class", `peca pecabranca`);
+                rei.setAttribute("src", `./assets/rei.png`);
+                document.getElementById(posivelposicao).appendChild(rei);
+            }
+            if(document.getElementById("pecaselecionada").innerHTML == "12"){
+                let posivelposicao = e.target.id;
+                console.log("movida para: " + posivelposicao);
+                let rainha = document.createElement('img');
+                rainha.setAttribute("id", `rainhabranco`);
+                rainha.setAttribute("class", `peca pecabranca`);
+                rainha.setAttribute("src", `./assets/rainha.png`);
+                document.getElementById(posivelposicao).appendChild(rainha);
             }
             voltarcor();
             apagapeca();
