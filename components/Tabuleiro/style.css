@@ -43,8 +43,6 @@
 .peca{
     width: 30px;
     height: 30px;
-
-    border: solid 1px red;
 }
 
 .pecabranca{
@@ -56,9 +54,6 @@ span{
 }
 
 @media (max-width: 600px) {
-    body{
-        background-color: red;
-    }
     .quadrado{
         width: 40px;
         height: 40px;
